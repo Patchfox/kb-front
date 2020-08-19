@@ -1,8 +1,7 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
+const resolveConfig = require("tailwindcss/resolveConfig");
+const tailwindConfig = require("./tailwind.config.js");
+
+const fullConfig = resolveConfig(tailwindConfig);
 
 module.exports = {
   /* Your site config here */
@@ -23,7 +22,16 @@ module.exports = {
       },
     },
 
+    // PostCSS
 
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        postCssPlugins: [
+          require(`tailwindcss`)(tailwindConfig),
+        ],
+      },
+    },
 
   ],
 }
