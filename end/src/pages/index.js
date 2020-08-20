@@ -1,34 +1,40 @@
-import React from "react";
-
-
-
-function IndexPage() {
-  return (
-
-      <section className="text-center">
-     
-
-        <h2 className="inline-block p-3 mb-4 text-2xl font-bold bg-yellow-400">
-          Hey there! Welcome to your first Gatsby site.
-        </h2>
-
-        <p className="leading-loose">
-          This is a barebones starter for Gatsby styled using{` `}
-          <a
-            className="font-bold text-gray-900 no-underline"
-            href="https://tailwindcss.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Tailwind CSS
-          </a>
-          , a utility-first CSS framework.
-        </p>
-      </section>
- 
-  );
+import algoliasearch from "algoliasearch/lite"
+import { createRef, default as React, useState } from "react"
+import { InstantSearch } from "react-instantsearch-dom"
+import { ThemeProvider } from "styled-components"
+import StyledSearchBox from "../components/styled-search-box"
+import StyledSearchResult from "../components/styled-search-result"
+import StyledSearchRoot from "../components/styled-search-root"
+import useClickOutside from "../components/use-click-outside"
+const theme = {
+  foreground: "#050505",
+  background: "white",
+  faded: "#888",
 }
-
-export default IndexPage;
-  
-
+export default function Search({ indices }) {
+  const rootRef = createRef()
+  const [query, setQuery] = useState()
+  const [hasFocus, setFocus] = useState(false)
+  const searchClient = algoliasearch(
+    process.env.GATSBY_ALGOLIA_APP_ID,
+    process.env.GATSBY_ALGOLIA_SEARCH_KEY
+  )
+  useClickOutside(rootRef, () => setFocus(false))
+  return (
+    <ThemeProvider theme={theme}>
+      <StyledSearchRoot ref={rootRef}>
+        <InstantSearch
+          searchClient={searchClient}
+          indexName={indices[0].name}
+          onSearchStateChange={({ query }) => setQuery(query)}
+        >
+          <StyledSearchBox onFocus={() => setFocus(true)} hasFocus={hasFocus} />
+          <StyledSearchResult
+            show={query && query.length > 0 && hasFocus}
+            indices={indices}
+          />
+        </InstantSearch>
+      </StyledSearchRoot>
+    </ThemeProvider>
+  )
+  }
