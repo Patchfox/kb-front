@@ -1,11 +1,7 @@
 const resolveConfig = require("tailwindcss/resolveConfig");
 const tailwindConfig = require("./tailwind.config.js");
-<<<<<<< HEAD
-=======
-require("dotenv").config()
 
 
->>>>>>> 6aecddddf7187fcea7e28498b9e2bf798e7c79cb
 const fullConfig = resolveConfig(tailwindConfig);
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -24,7 +20,7 @@ module.exports = {
     
 
     // Algolia
-<<<<<<< HEAD
+
     {
       // This plugin must be placed last in your list of plugins to ensure that it can query all the GraphQL data
       resolve: `gatsby-plugin-algolia`,
@@ -43,34 +39,7 @@ module.exports = {
       },
     },
    
-=======
-    `gatsby-plugin-styled-components`,
 
-    {
-      resolve: `gatsby-plugin-algolia`,
-      options: {
-        appId: process.env.GATSBY_ALGOLIA_APP_ID,
-        apiKey: process.env.ALGOLIA_ADMIN_KEY,
-        queries: require("./src/utils/algolia-queries")
-      },
-    },
-
-    //Strapi 
-
-    {
-      resolve: "gatsby-source-strapi",
-      options: {
-        apiURL: "http://localhost:1337",
-        contentTypes: [
-          // List of the Content Types you want to be able to request from Gatsby.
-          "kbArticles",
-          "user",
-        ],
-        queryLimit: 1000,
-      },
-    },
-
->>>>>>> 6aecddddf7187fcea7e28498b9e2bf798e7c79cb
 
     // Typography
 
