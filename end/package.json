@@ -16,13 +16,17 @@
   "dependencies": {
     "@styled-icons/fa-solid": "^10.15.1",
     "algoliasearch": "^4.4.0",
+<<<<<<< HEAD
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
+=======
+>>>>>>> 6aecddddf7187fcea7e28498b9e2bf798e7c79cb
     "gatsby": "^2.24.47",
     "gatsby-plugin-algolia": "^0.11.2",
     "gatsby-plugin-postcss": "^2.3.11",
     "gatsby-plugin-styled-components": "^3.3.10",
     "gatsby-plugin-typography": "^2.5.10",
+    "gatsby-source-strapi": "0.0.12",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
