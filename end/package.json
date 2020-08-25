@@ -16,11 +16,8 @@
   "dependencies": {
     "@styled-icons/fa-solid": "^10.15.1",
     "algoliasearch": "^4.4.0",
-<<<<<<< HEAD
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
-=======
->>>>>>> 6aecddddf7187fcea7e28498b9e2bf798e7c79cb
     "gatsby": "^2.24.47",
     "gatsby-plugin-algolia": "^0.11.2",
     "gatsby-plugin-postcss": "^2.3.11",
