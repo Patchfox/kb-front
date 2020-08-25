@@ -6,12 +6,10 @@ import { Search as SearchIcon } from "@styled-icons/fa-solid"
 
 export default connectSearchBox(
   ({ refine, currentRefinement, onFocus }) => (
-    <div className="flex justify-center pt-20">
+    <div className="flex justify-center">
        <div>
-        <img class="w-2/3 ml-auto mr-auto mb-6" src="https://dieneue1077.de/files/media/styles/adaptive_500px/adaptive-image/public/logo_stadtwerke_stuttgart_mit_claim_rgb.jpeg.jpg"/>
           <form className="SearchForm mb-0">
-              <div className="flex border border-gray-200 rounded-full p-4 shadow text-xl border-2  bg-white  focus:outline-none">
-              <div>🕵️‍</div>
+              <div className="flex border border-gray-200 rounded-full p-1 shadow  border-2 .text-base bg-white  focus:outline-none">
                 <input
                   className="SearchInput w-full outline-none px-3"
                   type="text"
@@ -19,9 +17,14 @@ export default connectSearchBox(
                   aria-label="Search"
                   onChange={e => refine(e.target.value)}
                   value={currentRefinement}
-                  onFocus={onFocus}   
+                  onFocus={onFocus}  
+                  
                 /> 
-              <div>🎤</div>
+                      <div class="search-icon pr-2 pt-2">
+                   <svg class="fill-current pointer-events-none text-gray-800 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+                   </svg>
+                </div>
             </div>   
           </form>   
         </div>
