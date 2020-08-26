@@ -7,17 +7,9 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-
- 
-    
-
 module.exports = {
 
-  
-  
   plugins: [
-
-    
 
     // Algolia
 
@@ -38,13 +30,19 @@ module.exports = {
         matchFields: ['slug', 'modified'], // Array<String> default: ['modified']
       },
     },
-   
-
-
+ 
     // Typography
 
     `gatsby-plugin-styled-components`,
 
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /assets/
+        }
+      }
+    },
 
     {
       resolve: `gatsby-plugin-typography`,
