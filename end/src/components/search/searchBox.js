@@ -1,6 +1,5 @@
 import React from "react"
 import { connectSearchBox } from "react-instantsearch-dom"
-import { Search as SearchIcon } from "@styled-icons/fa-solid"
 
 
 
