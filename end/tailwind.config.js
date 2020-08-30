@@ -4,7 +4,15 @@ module.exports = {
     future: {
     removeDeprecatedGapUtilities: true,
       },
-    theme: {},
+    theme: {
+      flexGrow: {
+        '0' : 0,
+        default: 1,
+        '2' : 2,
+      }
+
+
+    },
     variants: {},
     // https:/
     plugins: []

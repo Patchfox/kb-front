@@ -3,21 +3,20 @@ import algoliasearch from 'algoliasearch/lite';
 import {
     InstantSearch,
     Hits,
-    Pagination,
+ 
     Highlight,
   } from 'react-instantsearch-dom';
+import Pagination from "./pagination"
  
 
 
-const searchClient = algoliasearch('73XZM5WL9S', '14a0b078736efd854011ee929e377ed5');
+const searchClient = algoliasearch('73XZM5WL9S', 'ea73ad9dde21e451df2a2d13c0e3fe15');
 
 
 
 const Content = () =>
 <div className="content">
- 
   <Hits hitComponent={Hit}/>
-
 </div>
 
 
@@ -36,15 +35,20 @@ function Hit(props) {
 
 export default function SearchResult () {
   return (
-    <InstantSearch searchClient={searchClient} indexName="kb-articles">
+    <InstantSearch 
+    searchClient={searchClient} 
+    indexName="kb-articles"
+
+    >
     <div className="search-panel flex">
-                <div className="search-panel__results flex text-center px-4 py-2 m-2">
-                  <div className="pagination">
+                <div className="search-panel__results text-center mx-auto mt-2 w-3/4 px-4 py-2">
                       <Content/>
+                  <div className="flex justify-center mt-20">
                     <Pagination />
                   </div>
                 </div>
-              </div>
+                </div>
+            
     </InstantSearch>
 
 
