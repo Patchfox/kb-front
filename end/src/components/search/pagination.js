@@ -1,32 +1,55 @@
 import React, { Component } from 'react';
-import { connectPagination } from 'react-instantsearch-dom';
-import MaterialPagination from '@material-ui/lab/Pagination';
+import {
+  connectPagination,
+} from 'react-instantsearch-dom';
 
-const Pagination = ({ currentRefinement, nbPages, refine, createURL }) => (
-  <ul>
-    {new Array(nbPages).fill(null).map((_, index) => {
-      const page = index + 1;
-      const style = {
-        fontWeight: currentRefinement === page ? '' : '',
-      };
-      
+
+
+
+
+
+const range = (start, end) =>
+  Array.from({ length: end - start + 1 }, (_, i) => start + i);
+
+ 
+
+
+
+const Pagination = ({ padding = 2, refine, currentRefinement, nbPages }) => (
+
+  <>
+    
+    <span className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 m-2 rounded ">
+    <button 
+    className ="focus:outline-none"
+    onClick={() => refine(1)}>First</button></span>
+    {range(
+      Math.max(1, currentRefinement - padding),
+      Math.min(nbPages, currentRefinement + padding)
+    ).map(page => (
+      <span className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold  py-2 px-4 m-2 rounded "> <button
+       
+        className ="focus:outline-none"
+        key={page}
+        onClick={() => refine(page)}
+        style={{
+          color: currentRefinement === page ? 'bold' : 'unset',
+        }}
+      >
+        {page}
+      </button></span>
+    ))}
   
+      {nbPages > 1 &&
+     <span className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 rounded m-2">
+       <button  className ="focus:outline-none" onClick={() => refine(currentRefinement +1)}>Next</button> </span> }
+     
+        <span className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 m-2  rounded">
+    <button className ="focus:outline-none" onClick={() => refine(nbPages)}> </button>Last</span>
 
-      return (   
-     
-          
- <MaterialPagination variant="outlined"   style={style}   onClick={event => {
-              event.preventDefault();
-              refine(page);
-            }} href={createURL(page)} count={page} shape="rounded" >
-     </MaterialPagination>
-     
-      );
-    })}
-  </ul>
+  </>
 );
 
-const CustomPagination = connectPagination(Pagination);
+const ConnectedPagination = connectPagination(Pagination);
 
-export default CustomPagination
-
+export default ConnectedPagination; 

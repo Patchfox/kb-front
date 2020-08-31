@@ -14,10 +14,10 @@ export default function Header () {
          <div className=" w-48 sm:w-64  " >
          <Logo/> 
          </div>   
-          <div className="sm:block w-64 font-bold mt-2 sm:px-10 text-center" >
+          <div className="sm:block w-64 font-bold mt-2 sm:mt-0   sm:px-10 text-center" >
           <p>Knowledge Base</p>  
           </div>
-         <div className="flex-grow px-2 mt-4">
+         <div className="flex-grow px-2 mt-4 md:mt-0">
         <InstantSearch 
         searchClient={searchClient}
         indexName="kb-articles"

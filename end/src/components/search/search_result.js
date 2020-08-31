@@ -26,6 +26,7 @@ function Hit(props) {
     <article>
       <h1>
         <Highlight attribute="title" hit={props.hit} />
+       
       </h1> 
   
     </article>
@@ -43,7 +44,7 @@ export default function SearchResult () {
     <div className="search-panel flex">
                 <div className="search-panel__results text-center mx-auto mt-2 w-3/4 px-4 py-2">
                       <Content/>
-                  <div className="flex justify-center mt-20">
+                  <div className="flex flex-wrap justify-center mt-20">
                     <Pagination />
                   </div>
                 </div>
