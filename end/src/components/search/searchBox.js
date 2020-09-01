@@ -17,8 +17,6 @@ export default connectSearchBox(
                   onChange={e => refine(e.target.value)}
                   value={currentRefinement}
                   onFocus={onFocus}  
-             
-             
                   
                 /> 
                       <div className="search-icon pr-2 pt-1">

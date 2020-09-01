@@ -7,6 +7,7 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+
 module.exports = {
 
   plugins: [
@@ -20,7 +21,7 @@ module.exports = {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,
         // Use Admin API key without GATSBY_ prefix, so that the key isn't exposed in the application
         // Tip: use Search API key with GATSBY_ prefix to access the service from within components
-        apiKey: process.env.GATSBY_ALGOLIA_SEARCH_KEY,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
         queries: require("./src/components/search/algolia"),
         chunkSize: 10000, // default: 1000
         settings: {
@@ -42,6 +43,18 @@ module.exports = {
           include: /assets/
         }
       }
+    },
+
+    {
+      resolve: 'gatsby-source-strapi',
+      options: {
+        apiURL: 'http://localhost:1337',
+        contentTypes: [ // List of the Content Types you want to be able to request from Gatsby.
+          'Kb-Articles',
+          'user'
+        ],
+        queryLimit: 1000,
+      },
     },
 
     {

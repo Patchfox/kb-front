@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 const myQuery = `  
      {
       allStrapiKbArticles {
@@ -14,6 +18,9 @@ const myQuery = `
     
     const queries = [
       {
+
+
+       
         query:myQuery,
         transformer: ({ data }) => data.allStrapiKbArticles.edges.map(({ node }) => node), // optional
         indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME, // for all queries, // overrides main index name, optional
