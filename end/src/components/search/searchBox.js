@@ -1,9 +1,16 @@
 import React from "react"
 import { connectSearchBox } from "react-instantsearch-dom"
+import Searchbox  from "@elastic/react-search-ui"
+
+
+
+
+
 
 
 
 export default connectSearchBox(
+
   ({ refine, currentRefinement, onFocus }) => (
 
     
@@ -29,4 +36,4 @@ export default connectSearchBox(
    
  
   )
-)
+  ) 

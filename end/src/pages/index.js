@@ -16,12 +16,8 @@ export default function Home() {
   
     return (
       <Layout>
-              <Header/> 
-              <Content/>
-        
-       
-          
-         
+            
+              <Content/>  
       </Layout>
     );
 }

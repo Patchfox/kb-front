@@ -1,5 +1,12 @@
 @tailwind base;
 
+pre {
+    @apply my-10;
+    max-width: 100%;
+    overflow-x: auto;
+    background: #eee;
+  }
+
 @tailwind components;
 
 

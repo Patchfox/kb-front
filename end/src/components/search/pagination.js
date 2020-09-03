@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+
 import {
   connectPagination,
 } from 'react-instantsearch-dom';
-
-
 
 
 

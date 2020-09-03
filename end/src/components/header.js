@@ -7,6 +7,9 @@ import { searchClient } from "./constants"
 
 
 
+
+
+
 export default function Header ( ) {
   return (
    

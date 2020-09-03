@@ -4,9 +4,12 @@ import Layout from '../components/layout'
 
 const ArticleTemplate = ({ data }) => (
   <Layout>
-    <h1>{data.strapiKbArticles.title}</h1>
-    <p dangerouslySetInnerHTML ={{__html : data.strapiKbArticles.content }}></p>
-   
+
+    <div className="mx-auto w-full h-screen">
+    <div className="mx-auto h-auto w-1/2 px-4 py-4 ">
+    <h1 className ="text-5xl">{data.strapiKbArticles.title}</h1>
+    <div className="py-4" dangerouslySetInnerHTML ={{__html : data.strapiKbArticles.content }}></div>
+   </div></div>
   </Layout>
 )
 
