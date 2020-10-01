@@ -10,6 +10,7 @@ const myQuery = `
             id
             title
             content
+            slug
           }
         }
       }

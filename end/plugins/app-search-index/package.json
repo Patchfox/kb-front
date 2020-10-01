@@ -4,7 +4,10 @@
   "description": "",
   "main": "gatsby-node.js",
   "dependencies": {
-    "gatsby-cli": "^2.12.95"
+    "@elastic/app-search-node": "^7.9.0",
+    "@logilab/gatsby-plugin-elasticsearch": "^0.1.5",
+    "gatsby-cli": "^2.12.95",
+    "gatsby-source-elasticsearch": "^0.1.0"
   },
   "devDependencies": {},
   "scripts": {
