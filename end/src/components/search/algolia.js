@@ -10,6 +10,15 @@ const myQuery = `
             id
             title
             content
+            updated_at(formatString: "MMMM DD, YYYY, HH:mm" locale: "de")
+            created_by {
+              firstname
+              lastname
+            }
+            updated_by {
+              firstname
+              lastname
+            }
             slug
           }
         }
@@ -28,7 +37,7 @@ const myQuery = `
         settings: {
           // optional, any index settings
         },
-        matchFields: ['slug', 'modified'], // Array<String> overrides main match fields, optional
+       // matchFields: ['slug', 'modified'], // Array<String> overrides main match fields, optional
       },
     ];
 

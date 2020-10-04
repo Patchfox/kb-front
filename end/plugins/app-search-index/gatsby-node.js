@@ -16,10 +16,15 @@ const identity = (obj) => obj;
 
 
 async function fetchAppSearchObjects (engine, client) {
-  const test = await client.listDocuments(engine)
-  return test
+  const content = await client.listDocuments(engine)
+  const results = {};
+  if (Array.isArray(content.results)) {
+    content.results.forEach((result) => {
+      results[result.id] = result;
+    });
+  return results
 };
-
+};
 
 exports.onPostBuild = async function (
     { graphql },
@@ -27,10 +32,12 @@ exports.onPostBuild = async function (
       baseUrl,
       apiKey,
       queries,
-      settings: mainSettings,
+ //     settings: mainSettings,
       engine: mainIndexName,
       chunkSize = 1000,
-      enablePartialUpdates = false,
+      enablePartialUpdates = true,
+      //
+      matchFields: mainMatchFields = ['updated_at'],
       
   
 }
@@ -53,19 +60,25 @@ exports.onPostBuild = async function (
       engine = mainIndexName,
       query,
       transformer = identity,
-      settings = mainSettings,
+   //   settings = mainSettings,
+      matchFields = mainMatchFields,
     },
     i
   ){   
 
     if (!query) {
       report.panic(
-        `failed to index to Algolia. You did not give "query" to this query`
+        `failed to index to AppSearch. You did not give "query" to this query`
       );
+    }
+      if (!Array.isArray(matchFields) || !matchFields.length) {
+        return report.panic(
+          `failed to index to AppSearch. Argument matchFields has to be an array of strings`
+        );
       }
 
 
-     
+    /* Use to keep track of what to remove afterwards */
       if (!indexState[engine]) {
         indexState[engine] = {
           engine,
@@ -73,6 +86,8 @@ exports.onPostBuild = async function (
         };
       }
       const currentIndexState = indexState[engine];
+
+    
   
 
   setStatus(activity, `query #${i + 1}: executing query`);
@@ -109,21 +124,28 @@ exports.onPostBuild = async function (
   setStatus(
     activity,
     `query ${i}: found ${nbMatchedRecords} existing records`
+    
   );
 
   if (nbMatchedRecords) {
       hasChanged = objects.filter(curObj => {
-      const ID = curObj.objectID;
-      let extObj = ASObjects[ID];
+      const id = curObj.objectid;
+      console.log(ASObjects[id])
+      let extObj = ASObjects[id];
 
     /* The object exists so we don't need to remove it from Algolia */
-      delete ASObjects[ID];
-      delete currentIndexState.toRemove[ID];
+      delete ASObjects[id];
+      delete currentIndexState.toRemove[id];
 
+  // für neue Indixeinträge, wenn kein Objekt mit der ID existiert, wird es mit true ins Array geschrieben 
+  // für Indxing
       if (!extObj) return true;
-
+      
+  //wertet das Array (z.B. modified usw.) matchField immer auf 
+  //Usrpungsaudruck aus und ob das Feld ungleich dem anderen ist
       return !!matchFields.find((field) => extObj[field] !== curObj[field]);
     });
+   // Setzt alle AppSearch bestehenden Indexeinträge im toRemove Array auf true, für löschung
     Object.keys(ASObjects).forEach(
       objectID => (currentIndexState.toRemove[objectID] = true)
     );
@@ -137,32 +159,51 @@ exports.onPostBuild = async function (
 
 const chunks = chunk(hasChanged, chunkSize);
 try {
-const blub = await IndexAppSearchObjects(client, engine, hasChanged)
-console.log (blub)
+if(hasChanged.length != 0 ) {
+const newIndices = await IndexAppSearchObjects(client, engine, hasChanged)
+console.log (newIndices)}
 }catch(err){console.log (err)}
-// setStatus(activity, `query ${i}: splitting in ${chunks.length} jobs`);
-//     /* Add changed / new objects */
-//     const chunkJobs = chunks.map(async function (chunked) {
+ setStatus(activity, `query ${i}: splitting in ${chunks.length} jobs`);
+     /* Add changed / new objects */
+    const chunkJobs = chunks.map(async function (chunked) {
     
       
-//     });
+    });
 
-//     await Promise.all(chunkJobs);
+     await Promise.all(chunkJobs);
 
 })   
 
 try {
   await Promise.all(jobs);
 
+  if (enablePartialUpdates) {
+    /* Execute once per index */
+    /* This allows multiple queries to overlap */
+    const cleanup = Object.keys(indexState).map(async function (engine) {
+      const state = indexState[engine];
+      const isRemoved = Object.keys(state.toRemove);
+      console.log (isRemoved)
+
+      if (isRemoved.length) {
+        setStatus(
+          activity,
+          `deleting ${isRemoved.length} objects from ${engine} index`
+        );
+         const destryed = await client.destroyDocuments(state.engine, isRemoved);
+        return destryed
+      }
+    });
+
+    await Promise.all(cleanup);
+  }
+
 } catch (err) {
-  report.panic(`failed to index to Algolia`, err);
+  report.panic(`failed to index to AppSearch`, err);
 }
 
 activity.end();  
 };
-
-
-
 
 
 async function IndexAppSearchObjects (client, engine, documents) {
@@ -174,11 +215,6 @@ catch (err) {
   console.log (err)
 }
 };
-
-
-
-
-
 
 /**
  * Hotfix the Gatsby reporter to allow setting status (not supported everywhere)
@@ -193,8 +229,6 @@ function setStatus(activity, status) {
     console.log('AppSearch:', status);
   }
 }
-
-
 
 // // Check if engine exists and create if not
 
