@@ -10,7 +10,7 @@ const myQuery = `
             id
             title
             content
-            updated_at(formatString: "MMMM DD, YYYY, HH:mm" locale: "de")
+            updated_at(formatString: "MMMM DD, YYYY HH:mm" locale: "de")
             created_by {
               firstname
               lastname
@@ -33,7 +33,7 @@ const myQuery = `
        
         query:myQuery,
         transformer: ({ data }) => data.allStrapiKbArticles.edges.map(({ node }) => node), // optional
-        indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME, // for all queries, // overrides main index name, optional
+        indexName: process.env.GATSBY_AS_INDEX_NAME, // for all queries, // overrides main index name, optional
         settings: {
           // optional, any index settings
         },

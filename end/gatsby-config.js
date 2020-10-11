@@ -78,10 +78,10 @@ module.exports = {
       
       resolve: 'app-search-index',
       options: {
-        baseUrl:'http://52.143.154.210:3002/api/as/v1/',
-        apiKey: 'private-8kwmuhayj38ha4emyfecd7g2',
-        queries: require ("./src/components/search/algolia"),
-        engine: 'test',
+        baseUrl: process.env.GATSBY_AS_ENDPOINT + '/api/as/v1/',
+        apiKey:  process.env.AS_ADMIN_KEY,
+        queries: require ("./src/components/search/appsearch/appsearch_query"),
+        engine: process.env.GATSBY_AS_INDEX_NAME,
     
       },
     },

@@ -7,16 +7,10 @@ import Content from "../components/content";
 import "../css/style.css"
 
 
-
-
-
-
-
 export default function Home() {
   
     return (
       <Layout>
-            
               <Content/>  
       </Layout>
     );

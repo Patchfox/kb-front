@@ -118,19 +118,20 @@ exports.onPostBuild = async function (
     setStatus(activity, `query ${i}: starting Partial updates`);
 
   ASObjects = await fetchAppSearchObjects(engine, client)
-  console.log (ASObjects)
+  
+  
 
-  const nbMatchedRecords = Object.keys(ASObjects).length;
+  const MatchedRecords = Object.keys(ASObjects).length;
   setStatus(
     activity,
-    `query ${i}: found ${nbMatchedRecords} existing records`
+    `query ${i}: found ${MatchedRecords} existing records`
     
   );
 
-  if (nbMatchedRecords) {
+  if (MatchedRecords) {
       hasChanged = objects.filter(curObj => {
       const id = curObj.objectid;
-      console.log(ASObjects[id])
+    
       let extObj = ASObjects[id];
 
     /* The object exists so we don't need to remove it from Algolia */
@@ -160,8 +161,7 @@ exports.onPostBuild = async function (
 const chunks = chunk(hasChanged, chunkSize);
 try {
 if(hasChanged.length != 0 ) {
-const newIndices = await IndexAppSearchObjects(client, engine, hasChanged)
-console.log (newIndices)}
+const newIndices = await IndexAppSearchObjects(client, engine, hasChanged)}
 }catch(err){console.log (err)}
  setStatus(activity, `query ${i}: splitting in ${chunks.length} jobs`);
      /* Add changed / new objects */
@@ -183,7 +183,7 @@ try {
     const cleanup = Object.keys(indexState).map(async function (engine) {
       const state = indexState[engine];
       const isRemoved = Object.keys(state.toRemove);
-      console.log (isRemoved)
+     
 
       if (isRemoved.length) {
         setStatus(

@@ -1,8 +1,5 @@
 import React from "react"
-import Search from "../components/search/searchBox"
-import { InstantSearch } from "react-instantsearch-dom";
 import Logo  from "../components/assets/logo.svg"
-import { searchClient } from "./constants"
 
 
 
@@ -21,12 +18,7 @@ export default function Header ( ) {
           <p>Knowledge Base</p>  
           </div>
          <div className="flex-grow px-2 mt-4 md:mt-0">
-        <InstantSearch 
-        searchClient={searchClient}
-        indexName="kb-articles"
-        >
-          <Search/>
-        </InstantSearch>
+     
       </div>
 
      
