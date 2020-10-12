@@ -82,6 +82,7 @@ module.exports = {
         apiKey:  process.env.AS_ADMIN_KEY,
         queries: require ("./src/components/search/appsearch/appsearch_query"),
         engine: process.env.GATSBY_AS_INDEX_NAME,
+        //
     
       },
     },
